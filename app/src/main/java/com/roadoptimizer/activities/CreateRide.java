@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -19,8 +18,6 @@ import com.roadoptimizer.web.dto.RideOfferDTO;
 import com.roadoptimizer.web.services.ServiceGenerator;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -33,7 +30,7 @@ public class CreateRide extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_ride);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+//        setSupportActionBar(toolbar);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -49,17 +46,17 @@ public class CreateRide extends AppCompatActivity {
         final RideOfferDTO newRide = getValues(correctView);
 
         RideAPI service = ServiceGenerator.createService(RideAPI.class, Constants.TOKEN);
-        Call<RideOfferDTO> call = service.createRide(newRide);
-        call.enqueue(new Callback<RideOfferDTO>() {
+        Call<Void> call = service.createRideOffer(newRide);
+        call.enqueue(new Callback<Void>() {
 
             @Override
-            public void onResponse(Call<RideOfferDTO> call, Response<RideOfferDTO> response) {
+            public void onResponse(Call<Void> call, Response<Void> response) {
                 response.code();
                 Intent returnIntent = getIntent();
                 setResult(Activity.RESULT_OK, returnIntent);
 
                 if (response.isSuccessful()) {
-                    returnIntent.putExtra("createRideResult", "Ride " + newRide.getDate() + " successfully created");
+                    returnIntent.putExtra("createRideResult", "Ride " + newRide.getRideDate() + " successfully created");
                 } else {
                     returnIntent.putExtra("createRideResult", "Ride not created");
                 }
@@ -67,7 +64,7 @@ public class CreateRide extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<RideOfferDTO> call, Throwable t) {
+            public void onFailure(Call<Void> call, Throwable t) {
                 Log.e("MainActivity", t.getMessage(), t);
             }
 
@@ -76,13 +73,11 @@ public class CreateRide extends AppCompatActivity {
     }
 
     private RideOfferDTO getValues(View view) throws ParseException {
-        SimpleDateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
 
         EditText date = (EditText) view.findViewById(R.id.createRide_date);
-        EditText sits = (EditText) view.findViewById(R.id.createRide_sits);
-        EditText location = (EditText) view.findViewById(R.id.createRide_location);
+        EditText seats = (EditText) view.findViewById(R.id.createRide_sits);
+        EditText start = (EditText) view.findViewById(R.id.createRide_location);
 
-        Date dateObject = dateFormatter.parse(date.getText().toString());
 
         //location.getText().toString()
         LocationDTO locationDTO = LocationDTO.builder()
@@ -90,10 +85,16 @@ public class CreateRide extends AppCompatActivity {
                 .longitude(1.0)
                 .build();
 
+        LocationDTO endlocationDTO = LocationDTO.builder()
+                .latitude(80.0)
+                .longitude(80.0)
+                .build();
+
         RideOfferDTO newRide = RideOfferDTO.builder()
-                .date(dateObject.getTime())
-                .sits(Integer.parseInt(sits.getText().toString()))
-                .location(locationDTO)
+                .rideDate(date.getText().toString())
+                .seats(Integer.parseInt(seats.getText().toString()))
+                .start(locationDTO)
+                .end(endlocationDTO)
                 .build();
 
         return newRide;

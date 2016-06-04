@@ -7,8 +7,9 @@ import lombok.experimental.Builder;
 @Data
 @Builder
 public class RideOfferDTO {
-    private Long date;
-    private int sits;
-    private LocationDTO location;
+    private String rideDate;
+    private int seats;
+    private LocationDTO start;
+    private LocationDTO end;
 }
 

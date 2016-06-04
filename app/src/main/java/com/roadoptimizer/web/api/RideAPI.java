@@ -9,6 +9,6 @@ import retrofit2.http.POST;
 
 public interface RideAPI {
 
-    @POST("api/ride")
-    Call<RideOfferDTO> createRide(@Body RideOfferDTO rideOfferDTO);
+    @POST("api/offers")
+    Call<Void> createRideOffer(@Body RideOfferDTO rideOfferDTO);
 }
