@@ -15,7 +15,8 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.LoginActivity"
+        <activity
+            android:name=".activities.LoginActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme">
             <intent-filter>
@@ -36,7 +37,11 @@
         <activity
             android:name=".activities.CreateRide"
             android:label="@string/title_activity_create_ride"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activities.SearchRide"
+            android:label="@string/title_activity_search_ride"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

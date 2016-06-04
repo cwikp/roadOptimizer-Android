@@ -9,20 +9,16 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    android:id="@+id/create_ride_id"
-    tools:context=".activities.CreateRide"
-    tools:showIn="@layout/activity_create_ride">
-
-    <!--android:checked="false"-->
-    <!--android:checkMark="@drawable/checked"-->
+    tools:context=".activities.SearchRide"
+    tools:showIn="@layout/activity_search_ride">
 
     <EditText
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:inputType="date"
-        android:hint="Date"
+        android:hint="Location"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:id="@+id/createRide_date"
+        android:id="@+id/searchRide_location"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="59dp" />
@@ -31,36 +27,13 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:inputType="numberSigned"
-        android:hint="Sits available"
-        android:id="@+id/createRide_sits"
+        android:hint="Ride time"
+        android:id="@+id/searchRide_time"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:layout_marginTop="20dp"
-        android:layout_below="@+id/createRide_date"
+        android:layout_below="@+id/searchRide_location"
         android:layout_centerHorizontal="true" />
 
-    <AutoCompleteTextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:hint="Location"
-        android:ems="10"
-        android:id="@+id/createRide_location"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:layout_below="@+id/createRide_sits"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp" />
-
-
-    <EditText
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:inputType="time"
-        android:hint="Time"
-        android:id="@+id/createRide_time"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:layout_below="@+id/createRide_location"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"/>
 
     <Button
         android:layout_width="300dp"
@@ -69,7 +42,7 @@
         android:onClick="onCreateButtonRideClicked"
         android:id="@+id/button3"
         android:background="@drawable/custom_button"
-        android:layout_below="@+id/createRide_time"
+        android:layout_below="@+id/searchRide_time"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="49dp" />
 
