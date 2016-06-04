@@ -34,7 +34,7 @@ public class GooglePlacesAutocomplete {
     private static final String TYPE_AUTOCOMPLETE = "/autocomplete";
     private static final String OUT_JSON = "/json";
 
-    private static final String API_KEY = "AIzaSyD86gK6KGVdh_V6ZWDHNLOYX4716KXlgZg";
+    private static final String API_KEY = "AIzaSyBW-AFZ96Vbamre1AIBjwLtBnONf5ucljQ";
 
     public static ArrayList autocomplete(String input) {
         ArrayList resultList = null;
@@ -44,7 +44,7 @@ public class GooglePlacesAutocomplete {
         try {
             StringBuilder sb = new StringBuilder(PLACES_API_BASE + TYPE_AUTOCOMPLETE + OUT_JSON);
             sb.append("?key=" + API_KEY);
-            sb.append("&components=country:gr");
+            sb.append("&components=country:pl");
             sb.append("&input=" + URLEncoder.encode(input, "utf8"));
 
             URL url = new URL(sb.toString());
