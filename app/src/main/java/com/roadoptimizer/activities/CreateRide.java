@@ -8,10 +8,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Toast;
 
 import com.roadoptimizer.R;
 import com.roadoptimizer.utils.Constants;
+import com.roadoptimizer.utils.GooglePlacesAutocomplete;
 import com.roadoptimizer.web.api.RideAPI;
 import com.roadoptimizer.web.dto.LocationDTO;
 import com.roadoptimizer.web.dto.RideOfferDTO;
@@ -23,7 +28,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class CreateRide extends AppCompatActivity {
+public class CreateRide extends AppCompatActivity implements OnItemClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +36,13 @@ public class CreateRide extends AppCompatActivity {
         setContentView(R.layout.activity_create_ride);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 //        setSupportActionBar(toolbar);
+
+        AutoCompleteTextView autoCompView = (AutoCompleteTextView) findViewById(R.id.createRide_location);
+
+        if (autoCompView != null) {
+            autoCompView.setAdapter(new GooglePlacesAutocomplete.GooglePlacesAutocompleteAdapter(this, R.layout.list_item));
+            autoCompView.setOnItemClickListener(this);
+        }
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -100,5 +112,10 @@ public class CreateRide extends AppCompatActivity {
         return newRide;
     }
 
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        String str = (String) parent.getItemAtPosition(position);
+        Toast.makeText(this, str, Toast.LENGTH_SHORT).show();
+    }
 }
 
