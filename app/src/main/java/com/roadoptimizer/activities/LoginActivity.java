@@ -394,14 +394,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     .build();
 
 
-            LoginAPI service = retrofit.create(LoginAPI.class);
-            Call<LoginDTO> call = service.login(loginDTO);
-            call.enqueue(new Callback<LoginDTO>() {
+            LoginAPI service = ServiceGenerator.createService(LoginAPI.class, mLogin);
+            Call<Void> call = service.login(loginDTO);
+            call.enqueue(new Callback<Void>() {
 
                 @Override
-                public void onResponse(Call<LoginDTO> call, Response<LoginDTO> response) {
+                public void onResponse(Call<Void> call, Response<Void> response) {
                     //String cookie = response.headers().get("X-AUTH-TOKEN");
-
+                    Toast.makeText(LoginActivity.this, "RESPONSE", Toast.LENGTH_LONG).show();
                     Constants.TOKEN = mLogin;
                     if(response.isSuccessful()){
                         if(response.code() == 200) {
@@ -418,7 +418,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 }
 
                 @Override
-                public void onFailure(Call<LoginDTO> call, Throwable t) {
+                public void onFailure(Call<Void> call, Throwable t) {
                     Toast.makeText(LoginActivity.this, "Authorization went wrong", Toast.LENGTH_LONG).show();
                     isDone = true;
                 }
