@@ -34,7 +34,7 @@ public class GooglePlacesAutocomplete {
     private static final String TYPE_AUTOCOMPLETE = "/autocomplete";
     private static final String OUT_JSON = "/json";
 
-    private static final String API_KEY = "------your api key here -------";
+    private static final String API_KEY = "AIzaSyD86gK6KGVdh_V6ZWDHNLOYX4716KXlgZg";
 
     public static ArrayList autocomplete(String input) {
         ArrayList resultList = null;
