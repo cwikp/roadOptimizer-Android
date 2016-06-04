@@ -9,13 +9,13 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    android:id="@+id/search_ride_id"
     tools:context=".activities.SearchRide"
     tools:showIn="@layout/activity_search_ride">
 
     <EditText
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:inputType="date"
         android:hint="Location"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/searchRide_location"
@@ -26,7 +26,6 @@
     <EditText
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:inputType="numberSigned"
         android:hint="Ride time"
         android:id="@+id/searchRide_time"
         android:textAppearance="?android:attr/textAppearanceLarge"
@@ -39,7 +38,7 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:text="Create!"
-        android:onClick="onCreateButtonRideClicked"
+        android:onClick="onSearchButtonRideClicked"
         android:id="@+id/button3"
         android:background="@drawable/custom_button"
         android:layout_below="@+id/searchRide_time"
