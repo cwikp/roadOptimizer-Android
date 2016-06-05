@@ -46,8 +46,8 @@ public class SearchRide extends AppCompatActivity implements View.OnClickListene
                 finish();
             }
         });
-        txtTime = (EditText)findViewById(R.id.createRide_time);
-        txtDate = (EditText)findViewById(R.id.createRide_date);
+        txtTime = (EditText)findViewById(R.id.createSearch_time);
+        txtDate = (EditText)findViewById(R.id.createSearch_date);
 
         txtTime.setOnClickListener(this);
         txtDate.setOnClickListener(this);
@@ -87,7 +87,6 @@ public class SearchRide extends AppCompatActivity implements View.OnClickListene
     }
     private PassengerDTO getValues(View view) throws ParseException {
 
-        EditText date = (EditText) view.findViewById(R.id.searchRide_time);
         EditText start = (EditText) view.findViewById(R.id.searchRide_location);
 
 

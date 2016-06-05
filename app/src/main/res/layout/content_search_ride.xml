@@ -14,6 +14,24 @@
     tools:showIn="@layout/activity_search_ride">
 
     <EditText
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:hint="Date"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/createSearch_time"
+        android:layout_alignTop="@+id/createSearch_date"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+    <EditText
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="Select Date"
+        android:id="@+id/createSearch_date"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_alignRight="@+id/createSearch_time"
+        android:layout_alignEnd="@+id/button3" />
+
+    <EditText
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:hint="Location"
@@ -23,17 +41,6 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="59dp" />
 
-    <EditText
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:hint="Ride time"
-        android:id="@+id/searchRide_time"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:layout_marginTop="20dp"
-        android:layout_below="@+id/searchRide_location"
-        android:layout_centerHorizontal="true" />
-
-
     <Button
         android:layout_width="300dp"
         android:layout_height="wrap_content"
@@ -41,7 +48,7 @@
         android:onClick="onSearchButtonRideClicked"
         android:id="@+id/button3"
         android:background="@drawable/custom_button"
-        android:layout_below="@+id/searchRide_time"
+        android:layout_below="@+id/searchRide_location"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="49dp" />
 
