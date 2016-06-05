@@ -22,5 +22,5 @@ public interface RideAPI {
     Call<Void> joinRideOffer(@Body PassengerDTO passengerDTO);
 
     @GET("api/rides")
-    Call<List<RideDTO>>getPassengerRides(@Field("passengerId")String passengerId);
+    Call<List<RideDTO>>getPassengerRides();
 }

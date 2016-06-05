@@ -47,6 +47,10 @@
             android:name=".activities.SelectorActivity"
             android:label="Selector"
             android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activities.YourRides"
+            android:label="Your Rides"
+            android:theme="@style/AppTheme" />
 
         <activity
             android:name="com.roadoptimizer.activities.RideMapActivity"

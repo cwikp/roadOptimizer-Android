@@ -69,7 +69,7 @@ public class MenuActivity extends AppCompatActivity {
 
     public void onCheckYourRidesClicked(View view) {
         Intent intent = new Intent(this, YourRides.class);
-        this.startActivityForResult(intent, 3);
+        this.startActivity(intent);
     }
 
 }
