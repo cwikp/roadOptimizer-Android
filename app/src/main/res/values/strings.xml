@@ -20,6 +20,7 @@
     <string name="title_activity_menu">MenuActivity</string>
     <string name="menu_button1">Offer Tour</string>
     <string name="menu_button2">Search for Tours</string>
+    <string name="menu_button3">Check your rides</string>
     <string name="title_activity_create_ride">CreateRide</string>
     <string name="title_activity_search_ride">SearchRide</string>
     <string name="pick_time">07:00</string>
