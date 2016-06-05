@@ -18,6 +18,28 @@
 
 
     <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:hint="Start Location"
+        android:onClick="onStartLocationButtonClicked"
+        android:id="@+id/createRide_locationStart"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:hint="End Location"
+        android:onClick="onEndLocationButtonClicked"
+        android:id="@+id/createRide_locationEnd"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/createRide_locationStart"
+        android:layout_marginTop="20dp" />
+
+    <EditText
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:hint="Date"
@@ -46,17 +68,6 @@
         android:layout_below="@+id/createRide_time"
         android:layout_centerHorizontal="true" />
 
-    <AutoCompleteTextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:hint="Location"
-        android:ems="10"
-        android:id="@+id/createRide_location"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:layout_below="@+id/createRide_sits"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp" />
-
 
     <Button
         android:layout_width="300dp"
@@ -65,7 +76,7 @@
         android:onClick="onCreateButtonRideClicked"
         android:id="@+id/button3"
         android:background="@drawable/custom_button"
-        android:layout_below="@+id/createRide_location"
+        android:layout_below="@+id/createRide_sits"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="49dp" />
 

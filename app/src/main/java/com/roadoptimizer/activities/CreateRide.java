@@ -18,6 +18,13 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlaceAutocomplete;
+import com.google.android.gms.maps.model.LatLng;
 import com.roadoptimizer.R;
 import com.roadoptimizer.utils.Constants;
 import com.roadoptimizer.utils.GooglePlacesAutocomplete;
@@ -33,10 +40,17 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class CreateRide extends AppCompatActivity implements OnItemClickListener, View.OnClickListener {
+public class CreateRide extends AppCompatActivity implements View.OnClickListener {
     EditText txtDate, txtTime;
     private int mYear, mMonth, mDay, mHour, mMinute;
+    private static final int REQUEST_CODE_AUTOCOMPLETE = 1;
 
+    private EditText start;
+    private EditText end;
+
+    private LatLng coordsStart;
+    private LatLng coordsEnd;
+    private int code;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,12 +58,9 @@ public class CreateRide extends AppCompatActivity implements OnItemClickListener
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 //        setSupportActionBar(toolbar);
 
-        AutoCompleteTextView autoCompView = (AutoCompleteTextView) findViewById(R.id.createRide_location);
 
-        if (autoCompView != null) {
-            autoCompView.setAdapter(new GooglePlacesAutocomplete.GooglePlacesAutocompleteAdapter(this, R.layout.list_item));
-            autoCompView.setOnItemClickListener(this);
-        }
+        start = (EditText) findViewById(R.id.createRide_locationStart);
+        end = (EditText) findViewById(R.id.createRide_locationEnd);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -143,9 +154,9 @@ public class CreateRide extends AppCompatActivity implements OnItemClickListener
                 setResult(Activity.RESULT_OK, returnIntent);
 
                 if (response.isSuccessful()) {
-                    returnIntent.putExtra("createRideResult", "Ride " + newRide.getRideDate() + " successfully created");
+                    returnIntent.putExtra("createRideResult", "Ride " + newRide.getRideDate() + " successfully created : " + response.code());
                 } else {
-                    returnIntent.putExtra("createRideResult", "Ride not created");
+                    returnIntent.putExtra("createRideResult", "Ride not created : " + response.code());
                 }
                 finish();
             }
@@ -161,18 +172,17 @@ public class CreateRide extends AppCompatActivity implements OnItemClickListener
 
     private RideOfferDTO getValues(View view) throws ParseException {
         EditText seats = (EditText) view.findViewById(R.id.createRide_sits);
-        EditText start = (EditText) view.findViewById(R.id.createRide_location);
 
 
         //location.getText().toString()
         LocationDTO locationDTO = LocationDTO.builder()
-                .latitude(1.0)
-                .longitude(1.0)
+                .latitude(coordsStart.latitude)
+                .longitude(coordsStart.longitude)
                 .build();
 
         LocationDTO endlocationDTO = LocationDTO.builder()
-                .latitude(80.0)
-                .longitude(80.0)
+                .latitude(coordsEnd.latitude)
+                .longitude(coordsEnd.longitude)
                 .build();
 
         RideOfferDTO newRide = RideOfferDTO.builder()
@@ -185,10 +195,83 @@ public class CreateRide extends AppCompatActivity implements OnItemClickListener
         return newRide;
     }
 
+
+    public void onStartLocationButtonClicked(View view) {
+        code = 1;
+        openAutocompleteActivity();
+    }
+
+    public void onEndLocationButtonClicked(View view) {
+        code = 2;
+        openAutocompleteActivity();
+    }
+
+
+    private void openAutocompleteActivity() {
+        try {
+            // The autocomplete activity requires Google Play Services to be available. The intent
+            // builder checks this and throws an exception if it is not the case.
+            Intent intent = new PlaceAutocomplete.IntentBuilder(PlaceAutocomplete.MODE_FULLSCREEN)
+                    .build(this);
+            startActivityForResult(intent, REQUEST_CODE_AUTOCOMPLETE);
+        } catch (GooglePlayServicesRepairableException e) {
+            // Indicates that Google Play Services is either not installed or not up to date. Prompt
+            // the user to correct the issue.
+            GoogleApiAvailability.getInstance().getErrorDialog(this, e.getConnectionStatusCode(),
+                    0 /* requestCode */).show();
+        } catch (GooglePlayServicesNotAvailableException e) {
+            // Indicates that Google Play Services is not available and the problem is not easily
+            // resolvable.
+            String message = "Google Play Services is not available: " +
+                    GoogleApiAvailability.getInstance().getErrorString(e.errorCode);
+
+            Log.e("Selector", message);
+            Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    /**
+     * Called after the autocomplete activity has finished to return its result.
+     */
     @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        String str = (String) parent.getItemAtPosition(position);
-        Toast.makeText(this, str, Toast.LENGTH_SHORT).show();
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // Check that the result was from the autocomplete widget.
+        if (requestCode == REQUEST_CODE_AUTOCOMPLETE) {
+            if (resultCode == RESULT_OK) {
+                // Get the user's selected place from the Intent.
+                Place place = PlaceAutocomplete.getPlace(this, data);
+                Log.i("Selector", "Place Selected: " + place.getName());
+
+                // Format the place's details and display them in the TextView.
+
+                if (code == 1) {
+                    start.setText(place.getName() + " " + place.getAddress());
+                    coordsStart = place.getLatLng();
+                }
+                else if (code == 2) {
+                    end.setText(place.getName() + " " + place.getAddress());
+                    coordsEnd = place.getLatLng();
+                }
+
+                Toast.makeText(this, place.getLatLng().toString(), Toast.LENGTH_SHORT).show();
+
+                // Display attributions if required.
+//                CharSequence attributions = place.getAttributions();
+//                if (!TextUtils.isEmpty(attributions)) {
+//                    mPlaceAttribution.setText(Html.fromHtml(attributions.toString()));
+//                } else {
+//                    mPlaceAttribution.setText("");
+//                }
+            } else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
+                Status status = PlaceAutocomplete.getStatus(this, data);
+                Log.e("Selector", "Error: Status = " + status.toString());
+            } else if (resultCode == RESULT_CANCELED) {
+                // Indicates that the activity closed before a selection was made. For example if
+                // the user pressed the back button.
+            }
+        }
     }
 }
 

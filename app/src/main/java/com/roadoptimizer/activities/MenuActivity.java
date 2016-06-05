@@ -45,6 +45,15 @@ public class MenuActivity extends AppCompatActivity {
 
             }
         }
+        if(requestCode == 2){
+            if(resultCode == RESULT_OK){
+                Toast.makeText(this, data.getStringExtra("searchRideResult"), Toast.LENGTH_LONG).show();
+            }
+            else{
+                Toast.makeText(this, "Ride might not have been created", Toast.LENGTH_LONG).show();
+
+            }
+        }
     }
 
     public void onCreateTourClicked(View view) {
@@ -55,6 +64,6 @@ public class MenuActivity extends AppCompatActivity {
 
     public void onSearchToursClicked(View view) {
         Intent intent = new Intent(this, SearchRide.class);
-        this.startActivity(intent);
+        this.startActivityForResult(intent, 2);
     }
 }

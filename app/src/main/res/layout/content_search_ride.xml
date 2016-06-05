@@ -37,6 +37,7 @@
         android:hint="Location"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/searchRide_location"
+        android:onClick="onSearchLocationClicked"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="59dp" />
@@ -50,6 +51,6 @@
         android:background="@drawable/custom_button"
         android:layout_below="@+id/searchRide_location"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="49dp" />
+        android:layout_marginTop="154dp" />
 
 </RelativeLayout>

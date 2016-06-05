@@ -17,11 +17,9 @@ import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.mikepenz.materialdrawer.Drawer;
 
 import com.roadoptimizer.R;
+import com.roadoptimizer.activities.RideMapActivity;
 
 
-/**
- * Created by Paweł on 2016-05-21.
- */
 public class NavigationDrawer {
 
     Activity activity;
@@ -67,8 +65,8 @@ public class NavigationDrawer {
                     @Override
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
                         if (drawerItem.equals(item3)){
-//                            Intent intent = new Intent(activity, CreateEvent.class);
-//                            activity.startActivityForResult(intent, 1);
+                            Intent intent = new Intent(activity, RideMapActivity.class);
+                            activity.startActivity(intent);
                         }
                         return true;
                     }
