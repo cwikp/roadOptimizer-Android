@@ -9,6 +9,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.akexorcist.googledirection.DirectionCallback;
 import com.akexorcist.googledirection.GoogleDirection;
@@ -42,6 +43,8 @@ public class SimpleDirectionActivity extends AppCompatActivity implements OnMapR
     private LatLng origin = new LatLng(37.7849569, -122.4068855);
     private LatLng destination = new LatLng(37.7814432, -122.4460177);
     private List<RideDTO> rides;
+    private String startLat = 37.7849569 + "";
+    private String startLng = -122.4068855 + "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,8 +65,14 @@ public class SimpleDirectionActivity extends AppCompatActivity implements OnMapR
             @Override
             public void onResponse(Call<List<RideDTO>> call, Response<List<RideDTO>> response) {
                 if (response.isSuccessful()){
-                    requestDirection();
+                    Toast.makeText(SimpleDirectionActivity.this, "Map: getting rides", Toast.LENGTH_LONG).show();
                     rides = response.body();
+                    if (rides != null)
+                        requestDirection();
+                    else googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(camera, 13));
+                }
+                else{
+                    Toast.makeText(SimpleDirectionActivity.this, "Map: Failure", Toast.LENGTH_LONG).show();
                 }
             }
 
@@ -77,12 +86,15 @@ public class SimpleDirectionActivity extends AppCompatActivity implements OnMapR
     @Override
     public void onMapReady(GoogleMap googleMap) {
         this.googleMap = googleMap;
-        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(camera, 13));
     }
 
 
     public void requestDirection() {
+        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(rides.get(0).getStart().getLatitude(),rides.get(0).getStart().getLongitude()), 13));
         for (RideDTO ride : rides) {
+
+            startLat = ride.getStart().getLatitude().toString();
+            startLng = ride.getStart().getLongitude().toString();
 
             GoogleDirection.withServerKey(serverKey)
                     .from(new LatLng(ride.getStart().getLatitude(), ride.getStart().getLongitude()))
@@ -117,7 +129,7 @@ public class SimpleDirectionActivity extends AppCompatActivity implements OnMapR
     }
 
     public void onNavigatorButtonClicked(View view) {
-        Uri gmmIntentUri = Uri.parse("google.navigation:37.7749,-122.4194");
+        Uri gmmIntentUri = Uri.parse("google.navigation:"+startLat+","+startLng);
         Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
         mapIntent.setPackage("com.google.android.apps.maps");
         startActivity(mapIntent);

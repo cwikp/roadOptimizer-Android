@@ -401,7 +401,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 @Override
                 public void onResponse(Call<Void> call, Response<Void> response) {
                     //String cookie = response.headers().get("X-AUTH-TOKEN");
-                    Toast.makeText(LoginActivity.this, "RESPONSE", Toast.LENGTH_LONG).show();
+//                    Toast.makeText(LoginActivity.this, "RESPONSE", Toast.LENGTH_LONG).show();
                     Constants.TOKEN = mLogin;
                     if(response.isSuccessful()){
                         if(response.code() == 200) {

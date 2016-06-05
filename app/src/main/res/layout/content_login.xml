@@ -23,10 +23,10 @@
         android:visibility="gone" />
 
     <ImageView
-        android:layout_width="320dp"
-        android:layout_height="130dp"
-        android:scaleType="fitXY"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:id="@+id/image_progress"
+        android:background="@drawable/main_logo"
         android:src="@drawable/main_logo"
         android:adjustViewBounds="true"
         android:contentDescription="@string/loginImageDesc"

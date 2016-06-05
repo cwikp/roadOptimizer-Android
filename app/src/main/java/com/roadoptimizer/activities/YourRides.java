@@ -91,10 +91,8 @@ public class YourRides extends AppCompatActivity {
 //                RideDTO clickedEvent = rides.get(position);
 //                Toast.makeText(YourRides.this, clickedEvent.getOwnerName(), Toast.LENGTH_LONG).show();
 //
-//                Intent intent = new Intent(EventsList.this, SingleEvent.class);
-//                intent.putExtra("event", clickedEvent);
-//                EventsList.this.startActivity(intent);
-
+                Intent intent = new Intent(YourRides.this, SimpleDirectionActivity.class);
+                YourRides.this.startActivity(intent);
             }
         });
     }
