@@ -22,4 +22,5 @@
     <string name="menu_button2">Search for Tours</string>
     <string name="title_activity_create_ride">CreateRide</string>
     <string name="title_activity_search_ride">SearchRide</string>
+    <string name="pick_time">07:00</string>
 </resources>

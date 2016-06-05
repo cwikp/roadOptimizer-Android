@@ -1,6 +1,8 @@
 package com.roadoptimizer.activities;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -8,7 +10,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TimePicker;
 
 import com.roadoptimizer.R;
 import com.roadoptimizer.utils.Constants;
@@ -18,12 +22,15 @@ import com.roadoptimizer.web.dto.PassengerDTO;
 import com.roadoptimizer.web.services.ServiceGenerator;
 
 import java.text.ParseException;
+import java.util.Calendar;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class SearchRide extends AppCompatActivity {
+public class SearchRide extends AppCompatActivity implements View.OnClickListener{
+    EditText txtDate, txtTime;
+    private int mYear, mMonth, mDay, mHour, mMinute;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +46,11 @@ public class SearchRide extends AppCompatActivity {
                 finish();
             }
         });
+        txtTime = (EditText)findViewById(R.id.createRide_time);
+        txtDate = (EditText)findViewById(R.id.createRide_date);
+
+        txtTime.setOnClickListener(this);
+        txtDate.setOnClickListener(this);
     }
 
     public void onSearchButtonRideClicked(View view) throws ParseException {
@@ -87,9 +99,71 @@ public class SearchRide extends AppCompatActivity {
 
         PassengerDTO newRide = PassengerDTO.builder()
                 .address(locationDTO)
-                .rideTime(date.getText().toString())
+                .rideTime(txtDate.getText().toString() + " " + txtTime.getText().toString())
                 .build();
 
         return newRide;
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v == txtDate) {
+
+            // Get Current Date
+            final Calendar c = Calendar.getInstance();
+            mYear = c.get(Calendar.YEAR);
+            mMonth = c.get(Calendar.MONTH);
+            mDay = c.get(Calendar.DAY_OF_MONTH);
+
+
+            DatePickerDialog datePickerDialog = new DatePickerDialog(this,
+                    new DatePickerDialog.OnDateSetListener() {
+
+                        @Override
+                        public void onDateSet(DatePicker view, int year,
+                                              int monthOfYear, int dayOfMonth) {
+                            String y = Integer.toString(year);
+                            String m = Integer.toString(monthOfYear + 1);
+                            String d = Integer.toString(dayOfMonth);
+                            if (monthOfYear < 10) {
+                                m = "0" + m;
+                            }
+                            if (dayOfMonth < 10) {
+                                d = "0" + d;
+                            }
+                            txtDate.setText(y + "/" + m + "/" + d);
+
+                        }
+                    }, mYear, mMonth, mDay);
+            datePickerDialog.show();
+        }
+        if (v == txtTime) {
+
+            // Get Current Time
+            final Calendar c = Calendar.getInstance();
+            mHour = c.get(Calendar.HOUR_OF_DAY);
+            mMinute = c.get(Calendar.MINUTE);
+
+            // Launch Time Picker Dialog
+            TimePickerDialog timePickerDialog = new TimePickerDialog(this,
+                    new TimePickerDialog.OnTimeSetListener() {
+
+                        @Override
+                        public void onTimeSet(TimePicker view, int hourOfDay,
+                                              int minute) {
+
+                            String hour = Integer.toString(hourOfDay);
+                            String min = Integer.toString(minute);
+                            if (hourOfDay < 10) {
+                                hour = "0" + hour;
+                            }
+                            if (minute < 10) {
+                                min = "0" + min;
+                            }
+                            txtTime.setText(hour + ":" + min + ":" + "00");
+                        }
+                    }, mHour, mMinute, false);
+            timePickerDialog.show();
+        }
     }
 }
