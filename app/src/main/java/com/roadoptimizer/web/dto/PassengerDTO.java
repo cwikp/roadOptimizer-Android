@@ -8,6 +8,6 @@ import lombok.experimental.Builder;
 public class PassengerDTO {
     private String firstName;
     private String lastName;
-    private LocationDTO address;
+    private LocationDTO location;
     private String rideTime;
 }

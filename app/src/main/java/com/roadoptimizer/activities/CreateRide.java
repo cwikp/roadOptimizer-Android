@@ -154,7 +154,7 @@ public class CreateRide extends AppCompatActivity implements View.OnClickListene
                 setResult(Activity.RESULT_OK, returnIntent);
 
                 if (response.isSuccessful()) {
-                    returnIntent.putExtra("createRideResult", "Ride " + newRide.getRideDate() + " successfully created : " + response.code());
+                    returnIntent.putExtra("createRideResult", "Ride " + newRide.getRideTime() + " successfully created : " + response.code());
                 } else {
                     returnIntent.putExtra("createRideResult", "Ride not created : " + response.code());
                 }
@@ -186,7 +186,7 @@ public class CreateRide extends AppCompatActivity implements View.OnClickListene
                 .build();
 
         RideOfferDTO newRide = RideOfferDTO.builder()
-                .rideDate(txtDate.getText().toString() + " " + txtTime.getText().toString())
+                .rideTime(txtDate.getText().toString() + " " + txtTime.getText().toString())
                 .seats(Integer.parseInt(seats.getText().toString()))
                 .start(locationDTO)
                 .end(endlocationDTO)

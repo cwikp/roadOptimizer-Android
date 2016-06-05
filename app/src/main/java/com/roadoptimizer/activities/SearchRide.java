@@ -128,7 +128,7 @@ public class SearchRide extends AppCompatActivity implements View.OnClickListene
                 .build();
 
         PassengerDTO newRide = PassengerDTO.builder()
-                .address(locationDTO)
+                .location(locationDTO)
                 .rideTime(txtDate.getText().toString() + " " + txtTime.getText().toString())
                 .build();
 
