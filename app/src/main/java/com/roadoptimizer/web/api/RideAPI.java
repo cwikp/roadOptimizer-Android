@@ -21,6 +21,6 @@ public interface RideAPI {
     @POST("api/candidates")
     Call<Void> joinRideOffer(@Body PassengerDTO passengerDTO);
 
-    @GET("api/rides")
+    @GET("api/participates")
     Call<List<RideDTO>>getPassengerRides();
 }
