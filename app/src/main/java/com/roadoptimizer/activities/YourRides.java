@@ -28,6 +28,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
 
 public class YourRides extends AppCompatActivity {
@@ -115,9 +116,9 @@ public class YourRides extends AppCompatActivity {
 
             RideDTO currentRide =  rides.get(position);
 
-
+            CircleImageView imageView = (CircleImageView) itemView.findViewById(R.id.img_eventImage);
             TextView time = (TextView) itemView.findViewById(R.id.itemListTime);
-
+            imageView.setImageResource(R.drawable.checked);
 
 
             if(currentRide != null) {

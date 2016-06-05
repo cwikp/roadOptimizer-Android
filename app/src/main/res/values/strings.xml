@@ -42,4 +42,5 @@
     </string>
     <string name="intro_message">Intro</string>
     <string name="title_activity_ride_map">Map</string>
+    <string name="itemEventsImageDesc">image</string>
 </resources>
