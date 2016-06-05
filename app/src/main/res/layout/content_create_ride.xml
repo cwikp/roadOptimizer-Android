@@ -16,33 +16,10 @@
     <!--android:checked="false"-->
     <!--android:checkMark="@drawable/checked"-->
 
-
-    <EditText
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:hint="Start Location"
-        android:onClick="onStartLocationButtonClicked"
-        android:id="@+id/createRide_locationStart"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <EditText
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:hint="End Location"
-        android:onClick="onEndLocationButtonClicked"
-        android:id="@+id/createRide_locationEnd"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/createRide_locationStart"
-        android:layout_marginTop="20dp" />
-
     <EditText
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:hint="Date"
+        android:hint="Select time"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/createRide_time"
         android:layout_alignTop="@+id/createRide_date"
@@ -56,6 +33,30 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:layout_alignRight="@+id/createRide_time"
         android:layout_alignEnd="@+id/button3" />
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:hint="Start Location"
+        android:onClick="onStartLocationButtonClicked"
+        android:id="@+id/createRide_locationStart"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_below="@+id/createRide_date"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="20dp" />/>
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:hint="End Location"
+        android:onClick="onEndLocationButtonClicked"
+        android:id="@+id/createRide_locationEnd"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/createRide_locationStart"
+        android:layout_marginTop="20dp" />
+
+
 
     <EditText
         android:layout_width="fill_parent"
@@ -65,7 +66,7 @@
         android:id="@+id/createRide_sits"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:layout_marginTop="20dp"
-        android:layout_below="@+id/createRide_time"
+        android:layout_below="@+id/createRide_locationEnd"
         android:layout_centerHorizontal="true" />
 
 
