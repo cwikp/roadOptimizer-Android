@@ -56,6 +56,10 @@
             android:name="com.roadoptimizer.activities.RideMapActivity"
             android:label="@string/title_activity_ride_map" />
 
+        <activity
+            android:name="com.roadoptimizer.activities.SimpleDirectionActivity"
+            android:label="@string/title_activity_ride_map" />
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyAMQWLmPYWH16wNWIAodkRHTaTu_dvERWA" />

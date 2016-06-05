@@ -18,6 +18,7 @@ import com.mikepenz.materialdrawer.Drawer;
 
 import com.roadoptimizer.R;
 import com.roadoptimizer.activities.RideMapActivity;
+import com.roadoptimizer.activities.SimpleDirectionActivity;
 
 
 public class NavigationDrawer {
@@ -31,9 +32,9 @@ public class NavigationDrawer {
     }
 
     public void setupDrawer() {
-        PrimaryDrawerItem item1 = new PrimaryDrawerItem().withName("Share a Toast");
-        SecondaryDrawerItem item2 = (SecondaryDrawerItem) new SecondaryDrawerItem().withName("Events List");
-        final SecondaryDrawerItem item3 = (SecondaryDrawerItem) new SecondaryDrawerItem().withName("Create new event");
+        PrimaryDrawerItem item1 = new PrimaryDrawerItem().withName("Road Optimizer");
+        SecondaryDrawerItem item2 = (SecondaryDrawerItem) new SecondaryDrawerItem().withName("Menu");
+        final SecondaryDrawerItem item3 = (SecondaryDrawerItem) new SecondaryDrawerItem().withName("Show map");
 
         AccountHeader headerResult = new AccountHeaderBuilder()
                 .withActivity(activity)
@@ -59,13 +60,13 @@ public class NavigationDrawer {
                         new DividerDrawerItem(),
                         item2,
                         item3,
-                        new SecondaryDrawerItem().withName("Show map")
+                        new SecondaryDrawerItem().withName("Others")
                 )
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
                         if (drawerItem.equals(item3)){
-                            Intent intent = new Intent(activity, RideMapActivity.class);
+                            Intent intent = new Intent(activity, SimpleDirectionActivity.class);
                             activity.startActivity(intent);
                         }
                         return true;
